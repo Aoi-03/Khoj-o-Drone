@@ -1,0 +1,32 @@
+# ==============================================================================
+# eYRC Khoj-o-Drone Packages .gitignore
+# ==============================================================================
+
+# ROS 2 build & cache
+build/
+install/
+log/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ROS 2 bags & databases
+*.db3
+metadata.yaml
+
+# Submission archives
+*.zip
+KD_*.zip
+
+# Media & debug files
+*.mp4
+*.webm
+*_debug.jpg
+*results.txt
+
+# Editor / OS files
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*~
