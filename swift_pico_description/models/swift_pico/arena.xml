@@ -107,26 +107,14 @@
     <geom name="arena_floor" type="plane" size="8.6603 8.6603 0.01" pos="0 0 0.001"
           material="arena_mat" contype="0" conaffinity="0"/>
 
-    <!-- Black square prism obstacles: 1.5m x 1.5m footprint, 3m tall,
-         base on the floor (pos.z = half-height = 1.5 so each sits at
-         z=0..3, not floating). -->
-    <geom name="obstacle_1" type="box" size="0.75 0.75 1.5" pos="-2.4068 1.2034 1.5"
-          rgba="0 0 0 1" contype="1" conaffinity="1"/>
-
-    <geom name="obstacle_2" type="box" size="0.75 0.75 1.5" pos="3.6102 2.4068 1.5"
-          rgba="0 0 0 1" contype="1" conaffinity="1"/>
-
-    <geom name="obstacle_3" type="box" size="0.75 0.75 1.5" pos="2.4068 -3.6102 1.5"
-          rgba="0 0 0 1" contype="1" conaffinity="1"/>
-
-    <!-- Flat ground markers (not tall obstacles): yellow circles and red
-         triangles snapped to the PRINTED grid's true intersections. The
-         13x13 line grid is NOT the full arena_floor width  Khojo_Arena.png
-         has a white title/footer border baked into the texture, so the
-         actual grid only spans the inner ~1600px of the 1920px texture
-         (measured from the texture's own grid-line pixels: spacing =
-         133.4px @ 1920px-wide texture = 17.320508m -> 1.203414m/interval;
-         confirmed against the live top_cam render too).
+    <!-- Flat ground markers: red triangles only, snapped to the PRINTED
+         grid's true intersections. The 13x13 line grid is NOT the full
+         arena_floor width  Khojo_Arena.png has a white title/footer border
+         baked into the texture, so the actual grid only spans the inner
+         ~1600px of the 1920px texture (measured from the texture's own
+         grid-line pixels: spacing = 133.4px @ 1920px-wide texture =
+         17.320508m -> 1.203414m/interval; confirmed against the live
+         top_cam render too).
 
          IMPORTANT: only the 11x11 INTERIOR intersections are actually named
          on the printed grid  see the official reference at
@@ -137,20 +125,21 @@
          must never be placed there. Row 6 / col F = center = world (0,0).
          col_index: A=0 .. K=10.
          world_x = (col_index-5)*1.203414, world_y = (6-row)*1.203414
-         for row 1-11, col A-K. See custom_files/scripts/grid_to_xy.py. -->
-    <geom name="obstacle_circle_1" type="cylinder" size="0.5 0.005" pos="-2.4068 4.8137 0.005"
-          rgba="1 1 0 1" contype="0" conaffinity="0"/> <!-- 2,D -->
-    <geom name="obstacle_circle_2" type="cylinder" size="0.5 0.005" pos="2.4068 0.0000 0.005"
-          rgba="1 1 0 1" contype="0" conaffinity="0"/> <!-- 6,H -->
-    <geom name="obstacle_circle_3" type="cylinder" size="0.5 0.005" pos="-1.2034 -3.6102 0.005"
-          rgba="1 1 0 1" contype="0" conaffinity="0"/> <!-- 9,E -->
-
-    <geom name="obstacle_triangle_1" type="mesh" mesh="triangle_marker" pos="3.6102 4.8137 0.005"
-          rgba="1 0 0 1" contype="0" conaffinity="0"/> <!-- 2,I -->
-    <geom name="obstacle_triangle_2" type="mesh" mesh="triangle_marker" pos="-4.8137 -1.2034 0.005"
-          rgba="1 0 0 1" contype="0" conaffinity="0"/> <!-- 7,B -->
-    <geom name="obstacle_triangle_3" type="mesh" mesh="triangle_marker" pos="-3.6102 -4.8137 0.005"
-          rgba="1 0 0 1" contype="0" conaffinity="0"/> <!-- 10,C -->
+         for row 1-11, col A-K. See custom_files/scripts/grid_to_xy.py.
+         Coordinates below cross-checked against
+         swift_pico/scripts/grid_whycode_coordinates.csv. No obstacles, no
+         circles -- four triangles only, one picked at random from each of
+         the four quadrants around the center (F6), each within a Chebyshev
+         radius of 2 intersections, so the set spreads around center instead
+         of clustering on one side. -->
+    <geom name="obstacle_triangle_1" type="mesh" mesh="triangle_marker" pos="2.406828 1.203414 0.005"
+          rgba="1 0 0 1" contype="0" conaffinity="0"/> <!-- H5 (NE) -->
+    <geom name="obstacle_triangle_2" type="mesh" mesh="triangle_marker" pos="2.406828 -1.203414 0.005"
+          rgba="1 0 0 1" contype="0" conaffinity="0"/> <!-- H7 (SE) -->
+    <geom name="obstacle_triangle_3" type="mesh" mesh="triangle_marker" pos="-1.203414 2.406828 0.005"
+          rgba="1 0 0 1" contype="0" conaffinity="0"/> <!-- E4 (NW) -->
+    <geom name="obstacle_triangle_4" type="mesh" mesh="triangle_marker" pos="-2.406828 -1.203414 0.005"
+          rgba="1 0 0 1" contype="0" conaffinity="0"/> <!-- D7 (SW) -->
 
     <!--
       Top-down whycon camera — matches the real camera: pos=(0,0,15), pitch=90°, fov=60°.
