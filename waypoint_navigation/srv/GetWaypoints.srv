@@ -1,0 +1,6 @@
+# Request definition
+bool get_waypoints
+---
+# Response definition
+geometry_msgs/PoseArray waypoints
+

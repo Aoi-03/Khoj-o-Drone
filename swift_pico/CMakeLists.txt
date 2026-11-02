@@ -70,10 +70,24 @@ install(
 
 # --- Python example: pico_controller_PID.py -----------------------------------
 install(
-  PROGRAMS src/pico_controller_PID.py
+  PROGRAMS
+    src/pico_controller_PID.py
+    src/KD_2346_task_2a.py
+    src/waypoint_service.py
+    src/pico_client.py
+    src/pico_server.py
+    src/KD_2346_waypoint_service.py
+    src/KD_2346_pico_client.py
+    src/KD_2346_pico_server.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
-# Add the LQR controller and the waypoint service, client and server nodes below this line.
+# Also install aliases without .py extension to match e-Yantra instructions
+install(PROGRAMS src/waypoint_service.py DESTINATION lib/${PROJECT_NAME} RENAME waypoint_service)
+install(PROGRAMS src/pico_client.py DESTINATION lib/${PROJECT_NAME} RENAME pico_client)
+install(PROGRAMS src/pico_server.py DESTINATION lib/${PROJECT_NAME} RENAME pico_server)
+install(PROGRAMS src/KD_2346_waypoint_service.py DESTINATION lib/${PROJECT_NAME} RENAME KD_2346_waypoint_service)
+install(PROGRAMS src/KD_2346_pico_client.py DESTINATION lib/${PROJECT_NAME} RENAME KD_2346_pico_client)
+install(PROGRAMS src/KD_2346_pico_server.py DESTINATION lib/${PROJECT_NAME} RENAME KD_2346_pico_server)
 
 ament_package()

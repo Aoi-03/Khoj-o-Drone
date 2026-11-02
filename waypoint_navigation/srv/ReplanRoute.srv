@@ -1,0 +1,6 @@
+# Request definition
+geometry_msgs/Pose current_position
+---
+# Response definition
+geometry_msgs/PoseArray waypoints
+

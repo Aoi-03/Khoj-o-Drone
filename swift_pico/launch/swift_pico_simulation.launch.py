@@ -2,7 +2,8 @@ import os
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import OpaqueFunction
+from launch.actions import DeclareLaunchArgument, OpaqueFunction
+from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
 IMAGE_SHM_NAME = 'swift_pico_image_raw'
@@ -12,10 +13,16 @@ def _launch_setup(context, *args, **kwargs):
     fastdds_profile_path = os.path.join(
         get_package_share_directory('swift_pico'), 'config', 'fastdds_profile.xml')
 
+    try:
+        arena_cfg_val = int(LaunchConfiguration('arena_config').perform(context))
+    except Exception:
+        arena_cfg_val = 0
+
     mujoco_bridge = Node(
         package='swift_pico',
         executable='mujoco_bridge',
         output='screen',
+        parameters=[{'arena_config': arena_cfg_val}],
         additional_env={
             'RMW_FASTRTPS_PUBLICATION_MODE': 'ASYNCHRONOUS',
             'FASTRTPS_DEFAULT_PROFILES_FILE': fastdds_profile_path,
@@ -77,5 +84,6 @@ def _launch_setup(context, *args, **kwargs):
 
 def generate_launch_description():
     return LaunchDescription([
+        DeclareLaunchArgument('arena_config', default_value='0', description='Arena configuration (0-3)'),
         OpaqueFunction(function=_launch_setup),
     ])
